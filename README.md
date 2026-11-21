@@ -6,13 +6,7 @@ An S×S output-stationary systolic array that computes C = A·B with INT8 operan
 
 ## Architecture
 
-```
-          B[k][0]  B[k][1] … (skewed by column)
-             ▼        ▼
-A[0][k] ─► PE ─────► PE ─► …      each PE: acc += a·b, pass a right, pass b down
-A[1][k] ─► PE ─────► PE ─► …
-  (skewed by row)
-```
+![Architecture](docs/diagrams/architecture.svg)
 
 - `rtl/systolic_pe.sv`: one MAC processing element
 - `rtl/systolic_gemm.sv`: on-chip A/B operand buffers, skewed edge feeders, the S×S array, and a result read port
@@ -41,6 +35,12 @@ make test S=16 KMAX=128 TILES=30
 make lint
 make synth              # PE-level cells
 ```
+
+## Test run
+
+Output of the CI command (`make test lint`), captured from a local run:
+
+![Test run](docs/screenshots/test_run.svg)
 
 ## Limitations / next steps
 
